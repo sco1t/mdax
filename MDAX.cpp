@@ -40,7 +40,7 @@ unsigned long vtimer;
 
 static byte aline, rlinecnt;
 static byte vskip, COCK;
-byte vgaxfb[MDAX_HEIGHT*MDAX_BWIDTH];
+byte mdaxfb[MDAX_HEIGHT*MDAX_BWIDTH];
 
 //VSYNC interrupt
 ISR(TIMER1_OVF_vect) {
@@ -163,7 +163,7 @@ ISR(TIMER2_OVF_vect) {
     #else
     : [port] "I" (_SFR_IO_ADDR(PORTD)),
     #endif
-      "z" "I" (/*rline*/(byte*)vgaxfb + rlinecnt*MDAX_BWIDTH)
+      "z" "I" (/*rline*/(byte*)mdaxfb + rlinecnt*MDAX_BWIDTH)
     : "r16", "r17", "r20", "r21", "memory");
 
     //increment framebuffer line counter after 6 MDA lines
@@ -247,10 +247,10 @@ void MDAX::clear(byte color) {
   c&=3;
   register byte c0=(c*4) | c;
   c0|=c0*16;
-  memset(vgaxfb, c0, MDAX_BSIZE);
+  memset(mdaxfb, c0, MDAX_BSIZE);
 }
 void MDAX::copy(byte *src) {
-  byte *o=(byte*)vgaxfb;
+  byte *o=(byte*)mdaxfb;
   unsigned cnt=MDAX_BSIZE;
   while (cnt--)
     *o++=pgm_read_byte(src++);
