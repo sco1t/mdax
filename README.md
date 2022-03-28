@@ -13,10 +13,10 @@ Some photos:
 
 [<img width='20%' src='docs/screenshot6.jpg'/>](docs/screenshot6.jpg)
 
-## What is VGAX?
+## What is MDAx?
 
-This is a VGA library for Arduino UNO and Arduino MEGA.  
-To use this library you need only 4 resistors and one DSUB15 connector.  
+This is a MDA library for Arduino UNO and Arduino MEGA.  
+To use this library you need only 3 resistors and one DSUB15 connector.  
 This library require an ATMega328 MCU (or higher) MCU. Does not work with ATTINY family or ATMega168.
 
 ## Credits
@@ -25,11 +25,6 @@ Based on the [VGA color video generation](http://www.gammon.com.au/forum/?id=116
 Inspired from the game [Toorums Quest](http://petenpaja.blogspot.fi/2013/11/toorums-quest-ii-retro-video-game.html) by [Peten Paja](http://petenpaja.blogspot.fi).  
 AVR [interrupt dejitter](https://github.com/cnlohr/avrcraft/tree/master/terminal) from [Charles CNLOHR](https://github.com/cnlohr).  
 Thanks to Roberto Melzi [RobCai](https://www.youtube.com/channel/UCgQK0QAMUV5L4OT6y7HsryQ) for developing the first game that uses this library: [Arduino Bomber](https://www.youtube.com/watch?v=dtfNhh6GZ-s). 
-
-Check out my others Arduino libraries: 
-
-- [ESPVGAX](https://github.com/smaffer/espvgax) a VGA library for ESP8266 that support 512x480px 1bpp framebuffer
-- [VGAXUA](https://github.com/smaffer/vgaxua) a VGAX variant that support 192x80px 1bpp or 200x240px 1bpp on Arduino MEGA!
 
 ## Video
 
@@ -77,15 +72,6 @@ These are some of the possible combinations, done without additional components:
 
 ![color0.png](docs/color0.png)
 
-![color1.png](docs/color1.png)
-
-![color2.png](docs/color2.png)
-
-![color3.png](docs/color3.png)
-
-![color4.png](docs/color4.png)
-
-![color5.png](docs/color5.png)
 
 Pin 6 and pin 7 on Arduino MEGA must be changed to pin 30 and pin 31 but the same logic of choosing colors can be applyed on MEGA.
 
@@ -101,7 +87,7 @@ On Arduino MEGA PORTD is substituted to PORTA, vertical sync is pin 11 and horiz
 
 ## Interrupt
 
-VGAX library generate the video signal using only interrupts, so, inside main() function, you can do anything you want. Your code will be interrupted when VGA signal needs to be generated.
+MDAx library generate the video signal using only interrupts, so, inside main() function, you can do anything you want. Your code will be interrupted when VGA signal needs to be generated.
 
 [Nick Gammon](http://www.gammon.com.au/forum/?id=11608)'s original code generate the line pixels inside main(). I prefer to generate the line inside interrupts to keep the MCU free to do some other things, like run games or play sounds.
 
@@ -132,21 +118,21 @@ provided by my library.
 
 To use the VGAX library you need to include its header
 
-    #include <VGAX.h>
+    #include <MDAX.h>
 
 VGAX class is static, so you can use the class without create an instance of it:
 
     void setup() {
-      VGAX::begin();
+      MDAX::begin();
     }
 
 Or, if you prefer, you can create your instance, but keep in mind that cannot be
 more than one VGAX instance at a time:
 
-    VGAX vga;
+    MDAX mda;
 
     void setup() {
-      vga.begin();
+      mda.begin();
     }
 
 ### Pixel
@@ -493,8 +479,3 @@ With 2bitfont you can create your fonts from a single image and convert them to 
   (1 mean A0, 2 mean A1, 4 mean A3, 8 mean A4 and so on)
 - How can i prevent screen flickering? At this time there is no one mechanism to prevent the flickering. The right way to prevent flicker is to use a double (frame)buffer but there isn't enought free memory to do that.
 
-## Happy hacking
-
-If you find a way to optimize the speed of the library, or find a way to center horizontally the video signal, or you can improve the quality of the audio signal generated, let me know!
-
-Happy hacking!
