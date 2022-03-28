@@ -1,5 +1,5 @@
 /*
-
+based on the smaffer, Sandro Maffiodo VGAx code that was
 based on the "VGA color video generation" by Nick Gammon:
   http://www.gammon.com.au/forum/?id=11608.
 inspired from the work of Peten Paja:
