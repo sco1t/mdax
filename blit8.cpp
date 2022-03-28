@@ -1,15 +1,15 @@
-#include "VGAX.h"
+#include "MDAX.h"
 
-void VGAX::blit8aligned(byte *src, byte sheight, byte dbx, byte dy) {
+void MDAX::blit8aligned(byte *src, byte sheight, byte dbx, byte dy) {
   byte *sptr=src;
-  byte *dptr=(byte*)vgaxfb+VGAX_BWIDTH*dy+dbx;
+  byte *dptr=(byte*)mdaxfb+MDAX_BWIDTH*dy+dbx;
   while (sheight--) {
     dptr[0]=pgm_read_byte(sptr++);
     dptr[1]=pgm_read_byte(sptr++);
-    dptr+=VGAX_BWIDTH;
+    dptr+=MDAX_BWIDTH;
   }
 }
-void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
+void MDAX::blit8(byte *src, byte sheight, char dx, char dy) {
   byte *sptr=src;
   if (dy<0) {
     if (dy<-8)
@@ -18,12 +18,12 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
     sptr+=(-dy)*2;
     dy=0;
   }
-  if (dy>=VGAX_HEIGHT)
+  if (dy>=MDAX_HEIGHT)
     return;
-  char yout=dy+sheight-VGAX_HEIGHT;
+  char yout=dy+sheight-MDAX_HEIGHT;
   if (yout>0)
     sheight-=yout;
-  byte *dptr=(byte*)vgaxfb+VGAX_BWIDTH*dy+(dx>>2);
+  byte *dptr=(byte*)mdaxfb+MDAX_BWIDTH*dy+(dx>>2);
   if (dx<0) {
     if (dx<-7)
       return;
@@ -38,7 +38,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         byte b1=pgm_read_byte(sptr++);
         dptr[2]&=0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 2:
@@ -48,7 +48,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         byte b1=pgm_read_byte(sptr++);
         dptr[2]&=0x0f;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 3:
@@ -58,7 +58,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         byte b1=pgm_read_byte(sptr++);
         dptr[2]&=0x03;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 4:
@@ -66,7 +66,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
       while (sheight--) {
         sptr++;
         dptr[1]=pgm_read_byte(sptr++);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 5:
@@ -77,7 +77,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<6) | (b1>>2);
         dptr[2]&=0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 6:
@@ -88,7 +88,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<4) | (b1>>4);
         dptr[2]&=0x0f;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 7:
@@ -99,12 +99,12 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<2) | (b1>>6);
         dptr[2]&=0x03;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     }
-  } else if (dx>VGAX_WIDTH-8) {
-    if (dx>=VGAX_WIDTH)
+  } else if (dx>MDAX_WIDTH-8) {
+    if (dx>=MDAX_WIDTH)
       return;
     //right clip
     switch (dx & 7) {
@@ -118,7 +118,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[0]&=0xc0;
         dptr[0]|=b0>>2;
         dptr[1]=(b0<<6) | (b1>>2);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 5:
@@ -128,7 +128,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         sptr++;
         dptr[0]&=0xc0;
         dptr[0]|=b0>>2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 6:
@@ -138,7 +138,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         sptr++;
         dptr[0]&=0xf0;
         dptr[0]|=b0>>4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 2:
@@ -149,7 +149,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[0]&=0xf0;
         dptr[0]|=b0>>4;
         dptr[1]=(b0<<4) | (b1>>4);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 3:
@@ -160,7 +160,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[0]&=0xfc;
         dptr[0]|=b0>>6;
         dptr[1]=(b0<<2) | (b1>>6);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 4:
@@ -168,7 +168,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
       while (sheight--) {
         dptr[0]=pgm_read_byte(sptr++);
         sptr++;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 7:
@@ -178,7 +178,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         sptr++;
         dptr[0]&=0xfc;
         dptr[0]|=b0>>6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     }
@@ -189,7 +189,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
       while (sheight--) {
         dptr[0]=pgm_read_byte(sptr++);
         dptr[1]=pgm_read_byte(sptr++);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else if (dx3==1) {
       //3 pixels unaligned
@@ -201,7 +201,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<6) | (b1>>2);
         dptr[2]&=0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else if (dx3==2) {
       //2 pixels unaligned
@@ -213,7 +213,7 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<4) | (b1>>4);
         dptr[2]&=0x0f;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else { //dx3=3
       //1 pixel unaligned
@@ -225,12 +225,12 @@ void VGAX::blit8(byte *src, byte sheight, char dx, char dy) {
         dptr[1]=(b0<<2) | (b1>>6);
         dptr[2]&=0x03;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     }
   }
 }
-void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
+void MDAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
   byte *sptr=src;
   byte *mptr=mask;
   if (dy<0) {
@@ -241,12 +241,12 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
     mptr+=(-dy)*2;
     dy=0;
   }
-  if (dy>=VGAX_HEIGHT)
+  if (dy>=MDAX_HEIGHT)
     return;
-  char yout=dy+sheight-VGAX_HEIGHT;
+  char yout=dy+sheight-MDAX_HEIGHT;
   if (yout>0)
     sheight-=yout;
-  byte *dptr=(byte*)vgaxfb+VGAX_BWIDTH*dy+(dx>>2);
+  byte *dptr=(byte*)mdaxfb+MDAX_BWIDTH*dy+(dx>>2);
   if (dx<0) {
     if (dx<-7)
       return;
@@ -263,7 +263,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         byte b1=pgm_read_byte(sptr++);
         dptr[2]&=m1<<6 | 0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 5:
@@ -277,7 +277,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<6) | (b1>>2);
         dptr[2]&=m1<<6 | 0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 6:
@@ -291,7 +291,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<4) | (b1>>4);
         dptr[2]&=m1<<4 | 0xf;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 2:
@@ -303,7 +303,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         byte m1=pgm_read_byte(mptr++);
         dptr[2]&=m1<<4 | 0xf;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 3:
@@ -315,7 +315,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         byte m1=pgm_read_byte(mptr++);
         dptr[2]&=m1<<2 | 0x3;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 4:
@@ -325,7 +325,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         mptr++;
         dptr[1]&=pgm_read_byte(mptr++);
         dptr[1]|=pgm_read_byte(sptr++);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 7:
@@ -339,12 +339,12 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<2) | (b1>>6);
         dptr[2]&=m1<<2 | 0x3;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     }
-  } else if (dx>VGAX_WIDTH-8) {
-    if (dx>=VGAX_WIDTH)
+  } else if (dx>MDAX_WIDTH-8) {
+    if (dx>=MDAX_WIDTH)
       return;
     //right clip
     switch (dx & 7) {
@@ -361,7 +361,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[0]|=b0>>2;
         dptr[1]&=(m0<<6) | (m1>>2);
         dptr[1]|=(b0<<6) | (b1>>2);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 5:
@@ -373,7 +373,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         mptr++;
         dptr[0]&=m0>>2 | 0xc0;
         dptr[0]|=b0>>2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 6:
@@ -385,7 +385,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         mptr++;
         dptr[0]&=m0>>4 | 0xf0;
         dptr[0]|=b0>>4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 2:
@@ -399,7 +399,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[0]|=b0>>4;
         dptr[1]&=(m0<<4) | (m1>>4);
         dptr[1]|=(b0<<4) | (b1>>4);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 3:
@@ -413,7 +413,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[0]|=b0>>6;
         dptr[1]&=(m0<<2) | (m1>>6);
         dptr[1]|=(b0<<2) | (b1>>6);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 4:
@@ -423,7 +423,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[0]|=pgm_read_byte(sptr++);
         sptr++;
         mptr++;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     case 7:
@@ -435,7 +435,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         mptr++;
         dptr[0]&=m0>>6 | 0xfc;
         dptr[0]|=b0>>6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
       break;
     }
@@ -448,7 +448,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[0]|=pgm_read_byte(sptr++);
         dptr[1]&=pgm_read_byte(mptr++);
         dptr[1]|=pgm_read_byte(sptr++);
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else if (dx3==1) {
       //3 pixels unaligned
@@ -463,7 +463,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<6) | (b1>>2);
         dptr[2]&=m1<<6 | 0x3f;
         dptr[2]|=b1<<6;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else if (dx3==2) {
       //2 pixels unaligned
@@ -478,7 +478,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<4) | (b1>>4);
         dptr[2]&=m1<<4 | 0xf;
         dptr[2]|=b1<<4;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     } else { //dx3=3
       //1 pixel unaligned
@@ -493,7 +493,7 @@ void VGAX::blit8wmask(byte *src, byte *mask, byte sheight, char dx, char dy) {
         dptr[1]|=(b0<<2) | (b1>>6);
         dptr[2]&=m1<<2 | 0x3;
         dptr[2]|=b1<<2;
-        dptr+=VGAX_BWIDTH;
+        dptr+=MDAX_BWIDTH;
       }
     }
   }
