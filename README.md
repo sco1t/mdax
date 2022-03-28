@@ -1,23 +1,16 @@
-# VGAX Library for Arduino UNO and MEGA
+# MDA monochrome graphics Library for Arduino UNO and MEGA
 
-COPYRIGHT (C) 2014 Sandro Maffiodo  
+The text below needs updated for MDAx
+
+
+Based on VGAx By Sandro Maffiodo  
 [smaffer@gmail.com](mailto:smaffer@gmail.com)  
 [http://www.sandromaffiodo.com](http://www.sandromaffiodo.com)
 
 ![screenshot0](docs/screenshot3.jpg)
 
-YouTube videos:
-
-[<img width='20%' src='https://i.ytimg.com/vi/PfN_sQffLkg/mqdefault.jpg'/>](https://youtu.be/PfN_sQffLkg)
-[<img width='20%' src='https://i.ytimg.com/vi/Yvdf-pfneA4/mqdefault.jpg'/>](https://youtu.be/Yvdf-pfneA4)
-[<img width='20%' src='https://i.ytimg.com/vi/W9ebehFDDRA/mqdefault.jpg'/>](https://youtu.be/W9ebehFDDRA)
-[<img width='20%' src='https://i.ytimg.com/vi/Qs3uyhzUcfA/mqdefault.jpg'/>](https://youtu.be/Qs3uyhzUcfA)
-
 Some photos:
 
-[<img width='20%' src='docs/screenshot1.jpg'/>](docs/screenshot1.jpg)
-[<img width='20%' src='docs/screenshot5.jpg'/>](docs/screenshot5.jpg)
-[<img width='20%' src='docs/screenshot2.jpg'/>](docs/screenshot2.jpg)
 [<img width='20%' src='docs/screenshot6.jpg'/>](docs/screenshot6.jpg)
 
 ## What is VGAX?
@@ -27,7 +20,7 @@ To use this library you need only 4 resistors and one DSUB15 connector.
 This library require an ATMega328 MCU (or higher) MCU. Does not work with ATTINY family or ATMega168.
 
 ## Credits
-
+Baced on [VGAx] (https://github.com/smaffer/vgax ) by By Sandro Maffiodo  
 Based on the [VGA color video generation](http://www.gammon.com.au/forum/?id=11608) by [Nick Gammon](http://www.gammon.com.au).  
 Inspired from the game [Toorums Quest](http://petenpaja.blogspot.fi/2013/11/toorums-quest-ii-retro-video-game.html) by [Peten Paja](http://petenpaja.blogspot.fi).  
 AVR [interrupt dejitter](https://github.com/cnlohr/avrcraft/tree/master/terminal) from [Charles CNLOHR](https://github.com/cnlohr).  
