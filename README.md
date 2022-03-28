@@ -45,10 +45,7 @@ On Arduino MEGA (ATMega2560) framebuffer can be extended to 120x90px with square
 
 ## Audio
 
-This library implement an async tone (audio) generation too! The audio signal is
-generated in around 15 cycles of clock, inside the VGA horizontal back porch. The quality of the signal is poor but can be used to play some melodies.
-You can use tone(frequency) and noTone() methods to control the note duration.
-Your buzzer **must** be connected on the A0 pin.
+It's gone. all gone. If you use code for VGAX you will need to remove all reference to sound. 
 
 ## Wiring
 
