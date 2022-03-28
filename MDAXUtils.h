@@ -1,5 +1,5 @@
 /*
-Utils for MDAX Library 
+Utils for VGAx and MDAX Library 
 
 COPYRIGHT (C) 2014 Sandro Maffiodo
 smaffer@gmail.com
